@@ -1,6 +1,6 @@
 import sys
 import time
-import socket
+import socket 
 import stdiomask
 from os import name, system
 

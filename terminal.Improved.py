@@ -11,13 +11,17 @@ from os import name, system
 cmd = ""
 userID = ""
 
+loggedin = False
 root = False
 businessTools = False
 HOST = socket.gethostname()
 IP = socket.gethostbyname(HOST)
 running = True
 
-#*Functions
+#*↓Functions↓
+
+with open("userID.txt", "a") as ID:
+
 
 #Shows the # symbol when you are root user and $ when you are not
 def symbol():
@@ -49,12 +53,32 @@ def cls():
 		_ = system("clear")
 
 def login():
-	userID = int(input("Enter userID: "))
+	def userid():
+		userID = int(input("Enter userID: "))
+		if len(str(userID)) < 6:
+			print(style.red + "UserID valid")
+		else:
+			print(style.red + "Invalid userID, try again!" + style.reset)
+	def username():
+		usernameLogin = input("Enter username: ")
+		if 
 
 cls()
 
 #*______THE CODE ITSELF______
 
 while running:
-	userauth = input("Do you have an account")
+	userauth = input("Do you have an account? [Y]es or [N]o: ")
+	userauth = userauth.upper()
+	if userauth == "Y":
+		cls()
+		print(style.green + "Login" + style.reset)
+		while not loggedin:
+			login()
+	elif userauth == "N":
+		user = input("Enter your name: ")
+		user = user.title()
+
+		userID = int(input("Enter a PIN (Minimum 6 digits): "))
+
 
