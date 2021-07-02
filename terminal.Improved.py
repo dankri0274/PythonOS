@@ -1,10 +1,11 @@
+import json
+import pickle
+import socket
 import sys
 import time
-import json
-import socket
-import pickle
-import stdiomask
 from os import name, system
+
+import stdiomask
 
 #*Configuring the basics of the terminal
 
@@ -19,9 +20,6 @@ IP = socket.gethostbyname(HOST)
 running = True
 
 #*↓Functions↓
-
-with open("userID.txt", "a") as ID:
-
 
 #Shows the # symbol when you are root user and $ when you are not
 def symbol():
@@ -61,7 +59,6 @@ def login():
 			print(style.red + "Invalid userID, try again!" + style.reset)
 	def username():
 		usernameLogin = input("Enter username: ")
-		if 
 
 cls()
 
@@ -76,9 +73,33 @@ while running:
 		while not loggedin:
 			login()
 	elif userauth == "N":
-		user = input("Enter your name: ")
-		user = user.title()
-
+		cls()
+		userReg = input("Enter your full name: ")
+		userReg = userReg.title()
+		cls()
+		usernameR = input("Enter a username: ")
+		cls()
 		userID = int(input("Enter a PIN (Minimum 6 digits): "))
+		cls()
+		passwordR = stdiomask.getpass(prompt = "Enter a secure password: ", mask = "*")
+		cls()
+		passwordRC = stdiomask.getpass(prompt = "Confirm password: ", mask = "*")
+		cls()
+		if len(passwordR) < 8 or len(passwordRC) < 8 or " " in passwordR or " " in passwordRC:
+			print(style.red + "Invalid password" + style.reset)
+
+		data = {
+			"user": {
+				"name": userReg,
+				"username": usernameR,
+				"pin": userID,
+				"password": passwordR
+			}
+		}
+
+		with open("C:/Users/dankri/Documents/Programmering/Python/Testing/Logininfo/file.json", "a") as file:
+			json.dump(data, file)
+			file.write(",\n")
+
 
 
