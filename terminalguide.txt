@@ -1,0 +1,19 @@
+Basic commands:
+	For standard user:
+		ip = Get the local IPv4 address
+		su # = switch to root user
+		whoami = reveals if you are root or not
+		pcname = prints the name of the PC the code is being executd on
+		clear = clears screen
+		ping = pings the address you can enter on the line after entering ping command
+	
+	For root user:
+		chg username = change username of the non root user
+		chg name = change the name of the non root user
+		chg password = chang the password for the non root user
+
+	For both:
+		shutdown -now = quits the program
+		all except those for root user
+
+More commands to come
