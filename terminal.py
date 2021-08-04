@@ -12,13 +12,14 @@ except ImportError:
 	else:
 		os.system("pip3 install stdiomask")
 
-#*___________________SETUP___________________
+#*________________________________SETUP_______________________________*
 
 cmd = ""
-rootpassword = "admin"
+rootpassword = "volkswagengolf"
 
 root = False
 running = True
+loggedIn = False
 
 host = socket.gethostname()
 ip = socket.gethostbyname(host)
@@ -44,18 +45,17 @@ class style():
 	red = '\033[31m'
 	reset = '\033[0m'
 
-#Checks if code is running on a Windows or a Linux OS
+#!Checks if code is running on a Windows or a Linux OS
 def cls():
 	if name == "nt":
 		_ = system("cls")
 	else:
 		_ = system("clear")
+	
 
 cls()
 
 #*_________________________The program itself_________________________
-
-cls()
 
 user = input("Enter name: ")
 user = user.title()
@@ -73,17 +73,21 @@ cls()
 
 passConf = stdiomask.getpass(prompt = "Confirm password: ")
 
-if password == passConf:
-	print(style.green + "Account created" + style.reset)
+if password == passConf and len(password) >= 8 and len(passConf) >= 8:
+	print(style.green + "Account created, logging in..." + style.reset)
+	loggedIn = True
+	time.sleep(2)
 elif len(password) < 8 or len(passConf) < 8:
 	print(style.red + "Password must contain at least 8 characters" + style.reset)
+	time.sleep(2)
 else:
 	print(style.red + "Passwords don't match" + style.reset)
+	time.sleep(2)
 
 cls()
 
-while running:
-	cmd = input(f"{style.green + username}@{host + style.reset}:{style.blue}~{style.reset}{symbol()} ")
+while running and loggedIn:
+	cmd = input(f"{style.green + username}@{host + style.reset}:{style.blue}~{style.reset}{style.red + symbol() + style.reset if root else style.green + symbol() + style.reset} ")
 	cmd = cmd.lower()
 
 	#*COMMANDS
@@ -93,13 +97,13 @@ while running:
 		print(
 			style.cyan +
 			"Commands:\n"
-			"\t1. su # = switch user to root user\n"
+			"\t1. su # = switch user to root user / su = switch back\n"
 			"\t2. ip = Get the local IPv4 address\n"
 			"\t3. clear / cls = clear screen\n"
 			"\t4. pcname = shows the name of the PC\n"
 			"\t5. whoami = shows if you are root user or local user\n"
 			"\t6. ping = enter ping, and a second line will appear where\n\t-you can enter a website or local address to ping\n"
-			"\t7. shutdown -now = quits the program"
+			"\t7. shutdown -now = quits the program\n"
 			+ style.reset
 		)
 	elif cmd == "ip":
@@ -109,15 +113,24 @@ while running:
 	elif cmd == "clear" or cmd == "cls":
 		cls()
 	elif cmd == "su #":
-		root = True
-		cls()
+		if not root:
+			rootpass = stdiomask.getpass("Enter your root password: ")
+			if rootpass == rootpassword:
+				root = True
+				cls()
+			else:
+				print("Incorrect Password")
+				time.sleep(2)
+				cls()
+
 	elif cmd == "su":
 		root = False
+		cls()
 	elif cmd == "whoami":
 		if root:
-			print(f"{username} as root")
+			print(f"{style.red + username + style.reset} as root")
 		else:
-			print(f"{style.red + user + style.reset} as user {style.blue + username + style.reset}")
+			print(f"{style.yellow + user + style.reset} as user {style.blue + username + style.reset}")
 	elif cmd == "ping":
 		pingaddress = input("Enter address to ping: ")
 		pingcmd = f"ping {pingaddress}"
@@ -173,7 +186,7 @@ while running:
 		else:
 			print(style.red + "You must be root user to change password!")
 
-	#EOS
+	#EOS = End Of Settings
 	else:
 		print(style.red + "Unknown command!" + style.reset)
 		
