@@ -11,6 +11,7 @@ Basic commands:
 		chg username = change username of the non root user
 		chg name = change the name of the non root user
 		chg password = chang the password for the non root user
+		root password is volkswagengolf
 
 	For both:
 		shutdown -now = quits the program

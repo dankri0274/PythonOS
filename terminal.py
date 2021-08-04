@@ -45,13 +45,12 @@ class style():
 	red = '\033[31m'
 	reset = '\033[0m'
 
-#!Checks if code is running on a Windows or a Linux OS
+#!Checks if code is running on a Windows or a Linux OS and clears termainal accordingly
 def cls():
 	if name == "nt":
 		_ = system("cls")
 	else:
 		_ = system("clear")
-	
 
 cls()
 
@@ -93,7 +92,7 @@ while running and loggedIn:
 	#*COMMANDS
 
 	#*Practical commands
-	if cmd == "-help":
+	if cmd == "help":
 		print(
 			style.cyan +
 			"Commands:\n"
@@ -119,7 +118,7 @@ while running and loggedIn:
 				root = True
 				cls()
 			else:
-				print("Incorrect Password")
+				print(style.red + "Incorrect Password" + style.reset)
 				time.sleep(2)
 				cls()
 
@@ -148,8 +147,11 @@ while running and loggedIn:
 		if root:
 			user = input("Enter new name: ")
 			user = user.title()
+
 			print(f"Name successfully changed to: {style.blue + user + style.reset}")
+
 			time.sleep(2)
+
 			cls()
 		else:
 			print(style.red + "You must be root user to change owner name!" + style.reset)
@@ -188,5 +190,5 @@ while running and loggedIn:
 
 	#EOS = End Of Settings
 	else:
-		print(style.red + "Unknown command!" + style.reset)
+		print(style.red + "Unknown command! Type \"help\" for more information" + style.reset)
 		
