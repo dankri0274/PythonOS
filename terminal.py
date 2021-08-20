@@ -1,9 +1,9 @@
+#!/usr/bin/env python
+
 import os
 import sys
 import time
-import json
 import socket
-import platform
 from os import name, system
 
 try:
@@ -14,13 +14,14 @@ except ImportError:
 	else:
 		os.system("pip3 install stdiomask")
 
-#*___________________SETUP___________________
+#*________________________________SETUP_______________________________*
 
 cmd = ""
-rootpassword = "admin"
+rootpassword = "root"
 
 root = False
 running = True
+loggedIn = False
 
 host = socket.gethostname()
 ip = socket.gethostbyname(host)
@@ -46,7 +47,7 @@ class style():
 	red = '\033[31m'
 	reset = '\033[0m'
 
-#Checks if code is running on a Windows or a Linux OS
+#!Checks if code is running on a Windows or a Linux OS and clears termainal accordingly
 def cls():
 	if name == "nt":
 		_ = system("cls")
@@ -65,54 +66,56 @@ cls()
 
 #*_________________________The program itself_________________________
 
-cls()
 user = input("Enter name: ")
 user = user.title()
+
 cls()
+
 username = input("Enter username: ")
 username = username.lower()
+
 cls()
+
 password = stdiomask.getpass(prompt = "Enter a password: ")
+
 cls()
+
 passConf = stdiomask.getpass(prompt = "Confirm password: ")
 
-#add variables user, username, password to data
-data = {
-	"Name": user,
-	"Username": username,
-	"Password": password
-}
-#add data to terminalusers.json
-with open("C:/Users/dankri/documents/programmering/python/OS/terminal/terminalusers.json", "w") as file:
-	json.dump(data, file)
+cls()
 
-if password == passConf:
-	print(style.green + "Account created" + style.reset)
+if password == passConf and len(password) >= 8 and len(passConf) >= 8:
+	print(style.green + "Account created, logging in..." + style.reset)
+	loggedIn = True
+	time.sleep(2)
 elif len(password) < 8 or len(passConf) < 8:
 	print(style.red + "Password must contain at least 8 characters" + style.reset)
+	time.sleep(2)
 else:
 	print(style.red + "Passwords don't match" + style.reset)
+	time.sleep(2)
 
 cls()
 
-while running:
-	cmd = input(f"{style.green + username}@{host + style.reset}:{style.blue}~{style.reset}{style.red + symbol() + style.reset if root else symbol()} ")
+while running and loggedIn:
+	cmd = input(f"{style.green + username}@{host + style.reset}:{style.blue}~{style.reset}{style.red + symbol() + style.reset if root else style.green + symbol() + style.reset} ")
 	cmd = cmd.lower()
 
 	#*COMMANDS
 
 	#*Practical commands
-	if cmd == "-help":
+	if cmd == "help":
 		print(
 			style.cyan +
 			"Commands:\n"
-			"\t1. su # = switch user to root user\n"
+			"\t1. su # = switch user to root user / su = switch back\n"
 			"\t2. ip = Get the local IPv4 address\n"
 			"\t3. clear / cls = clear screen\n"
 			"\t4. pcname = shows the name of the PC\n"
 			"\t5. whoami = shows if you are root user or local user\n"
-			"\t6. ping = enter ping, and a second line will appear where\n\t-you can enter a website or local address to ping\n"
-			"\t7. shutdown -now = quits the program"
+			"\t6. ping = enter address to ping after ping\n\tex ping www.google.com\n"
+			"\t7. shutdown -now = quits the program\n"
+			"\t8. echo = enter a string after echo to print it to terminal\n"
 			+ style.reset
 		)
 	elif cmd == "ip":
@@ -122,21 +125,33 @@ while running:
 	elif cmd == "clear" or cmd == "cls":
 		cls()
 	elif cmd == "su #":
-		root = True
-		cls()
-	elif cmd == "su":
-		root = False
-	elif cmd == "whoami":
-		if root:
-			print(f"{username} as root")
-		else:
-			print(f"{style.red + user + style.reset} as user {style.blue + username + style.reset}")
-	elif cmd == "ping":
-		pingaddress = input("Enter address to ping: ")
-		pingcmd = f"ping {pingaddress}"
-		os.system(pingcmd)
+		if not root:
+			rootpass = stdiomask.getpass("Enter your root password: ")
+			if rootpass == rootpassword:
+				root = True
+				cls()
+			else:
+				print(style.red + "Incorrect Password" + style.reset)
+				time.sleep(2)
+				cls()
 	elif cmd == "sysinfo":
 		systeminfo()
+	elif cmd == "su":
+		root = False
+		cls()
+	elif cmd == "whoami":
+		if root:
+			print(f"{style.red + username + style.reset} as root")
+		else:
+			print(f"{style.yellow + user + style.reset} as user {style.blue + username + style.reset}")
+
+	elif cmd.startswith("ping"):
+		pingcmd = f"ping {cmd[5:]}"
+		os.system(pingcmd)
+
+	elif cmd.startswith("echo"):
+		print(cmd[5:])
+
 	elif cmd == "shutdown -now":
 		cls
 		print(style.cyan + "Made by Daniel Kristensen\nWritten in Python" + style.reset)
@@ -144,14 +159,17 @@ while running:
 		exit()
 	
 
-#*__________Commands that change system settings__________
+	#*Commands that change system settings
 	
 	elif cmd == "chg name":
 		if root:
 			user = input("Enter new name: ")
 			user = user.title()
+
 			print(f"Name successfully changed to: {style.blue + user + style.reset}")
+
 			time.sleep(2)
+
 			cls()
 		else:
 			print(style.red + "You must be root user to change owner name!" + style.reset)
@@ -174,7 +192,7 @@ while running:
 			"\t3. chg password\n"
 		)
 
-#*__________Root settings__________
+	#*Root settings
 	elif cmd == "chg password":
 		if root:
 			password = stdiomask.getpass(prompt = "Enter new password: ", mask = "*")
@@ -188,7 +206,8 @@ while running:
 		else:
 			print(style.red + "You must be root user to change password!")
 
-	#EOS
+	#EOS = End Of Settings
 	else:
-		print(style.red + "Unknown command!" + style.reset)
-		
+		print(style.red + "Unknown command! Type \"help\" for more information" + style.reset)
+
+#! ©Daniel Kristensen 2021
