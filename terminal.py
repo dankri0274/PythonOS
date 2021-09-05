@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import sys
@@ -14,17 +14,18 @@ except ImportError:
 	else:
 		os.system("pip3 install stdiomask")
 
-#*________________________________SETUP_______________________________*
+#*_______________SETUP_______________
 
 cmd = ""
+rootRequest = ""
 rootpassword = "root"
 
 root = False
 running = True
 loggedIn = False
 
-host = socket.gethostname()
-ip = socket.gethostbyname(host)
+HOST = socket.gethostname()
+IPV4 = socket.gethostbyname(HOST)
 
 def symbol():
 	if root:
@@ -32,81 +33,86 @@ def symbol():
 	else:
 		return "$"
 
-#*Style and color for output text
-class style():
-	underline = '\033[4m' #!Styling
-	
-	#*Colors
-	magenta = '\033[35m'
-	yellow = '\033[33m'
-	black = '\033[30m'
-	white = '\033[37m'
-	green = '\033[32m'
-	blue = '\033[34m'
-	cyan = '\033[36m'
-	red = '\033[31m'
-	reset = '\033[0m'
+class st():
+	ULINE = '\033[4m'
 
-#!Checks if code is running on a Windows or a Linux OS and clears termainal accordingly
-def cls():
+	#* Colors
+
+	MGN		=		'\033[35m'
+	YLW		=		'\033[33m'
+	BLK		=		'\033[30m'
+	WHT		=		'\033[37m'
+	GRN		=		'\033[32m'
+	BLUE	=		'\033[34m'
+	CYAN	=		'\033[36m'
+	RED		=		'\033[31m'
+	RESET	=		'\033[0m'
+
+#! Checks if code is running on a Windows or a Linux machine and clears terminal accordingly
+def CLS():
 	if name == "nt":
 		_ = system("cls")
 	else:
 		_ = system("clear")
 
-def systeminfo():
-	print(f"Full name:\t{user}")
+def SYSINFO():
+	print(f"Full name:\t{userFullName}")
 	print(f"User:\t\t{username}")
 	print(f"OS:\t\t{platform.system()}")
 	print(f"Release:\t{platform.release()}")
 	print(f"Version:\t{platform.version()}")
-	print(f"IPv4:\t\t{ip}")
+	print(f"IPv4:\t\t{IPv4}")
 
-cls()
+CLS()
 
-#*_________________________The program itself_________________________
+#*_______________The_Program_Itself_______________
 
-user = input("Enter name: ")
-user = user.title()
+print(st.GRN +
+	"This program is created and maintained by Daniel Kristensen\n"
+	"For source code access send e-mail request to: dankri0274@gmail.com"
++ st.RESET)
 
-cls()
+userFullName = input("Enter your full name: ")
+userFullName = userFullName.title()
 
-username = input("Enter username: ")
+CLS()
+
+username = input("Enter username to use: ")
 username = username.lower()
 
-cls()
+CLS()
 
-password = stdiomask.getpass(prompt = "Enter a password: ")
+password = stdiomask.getpass(prompt = f"Enter a password for {username}: ", mask = "*")
 
-cls()
+CLS()
 
-passConf = stdiomask.getpass(prompt = "Confirm password: ")
+passwordC = stdiomask.getpass(prompt = f"Confirm password for {username}: ", mask = "*")
 
-cls()
+CLS()
 
-if password == passConf and len(password) >= 8 and len(passConf) >= 8:
-	print(style.green + "Account created, logging in..." + style.reset)
+if password == passwordC and len(password) >= 8 and len(passwordC) >= 8:
+	print(st.GRN + "Account created, logging in" + st.RESET)
 	loggedIn = True
-	time.sleep(2)
-elif len(password) < 8 or len(passConf) < 8:
-	print(style.red + "Password must contain at least 8 characters" + style.reset)
+	time.sleep(1)
+elif len(password) < 8 or len(passwordC) < 8:
+	print(st.RED + "Password must contain atleast 8 characters!" + st.RESET)
 	time.sleep(2)
 else:
-	print(style.red + "Passwords don't match" + style.reset)
+	print(st.RED + "Passwords don't match!")
 	time.sleep(2)
 
-cls()
+CLS()
 
 while running and loggedIn:
-	cmd = input(f"{style.green + username}@{host + style.reset}:{style.blue}~{style.reset}{style.red + symbol() + style.reset if root else style.green + symbol() + style.reset} ")
+	cmd = input(f"{st.GRN + username}@{HOST + st.RESET}:{st.BLUE}~{st.RESET}{st.RED + symbol() + st.RESET if root else st.GRN + symbol() + st.RESET} ")
 	cmd = cmd.lower()
 
-	#*COMMANDS
+	#* COMMANDS
 
-	#*Practical commands
+	#* Practical commands
 	if cmd == "help":
 		print(
-			style.cyan +
+			st.CYAN +
 			"Commands:\n"
 			"\t1. su # = switch user to root user / su = switch back\n"
 			"\t2. ip = Get the local IPv4 address\n"
@@ -116,98 +122,78 @@ while running and loggedIn:
 			"\t6. ping = enter address to ping after ping\n\tex ping www.google.com\n"
 			"\t7. shutdown -now = quits the program\n"
 			"\t8. echo = enter a string after echo to print it to terminal\n"
-			+ style.reset
+			+ st.RESET
 		)
 	elif cmd == "ip":
-		print(style.blue + ip + style.reset)
+		print(st.CYAN + IPV4 + st.RESET)
 	elif cmd == "pcname":
-		print(style.green + host + style.reset)
+		print(st.GRN + HOST + st.RESET)
 	elif cmd == "clear" or cmd == "cls":
-		cls()
+		CLS()
 	elif cmd == "su #":
-		if not root:
-			rootpass = stdiomask.getpass("Enter your root password: ")
-			if rootpass == rootpassword:
+		if not root: 
+			rootRequest = stdiomask.getpass(prompt = "Enter root password: ", mask = "*")
+			if rootRequest == rootpassword:
 				root = True
-				cls()
+				CLS()
 			else:
-				print(style.red + "Incorrect Password" + style.reset)
-				time.sleep(2)
-				cls()
+				print("Password is incorrect, try agian!")
+				time.sleep(1)
+				tries += 1
+				CLS()
 	elif cmd == "sysinfo":
-		systeminfo()
+		SYSINFO()
 	elif cmd == "su":
-		root = False
-		cls()
-	elif cmd == "whoami":
 		if root:
-			print(f"{style.red + username + style.reset} as root")
+			root = False
 		else:
-			print(f"{style.yellow + user + style.reset} as user {style.blue + username + style.reset}")
-
+			print("Enter 'su #' to become root user")
+	elif cmd == "whomai":
+		if root:
+			print(f"{st.RED + username + st.RESET} as root")
+		else:
+			print(f"{st.YLW + userFullName + st.RESET} as user {st.CYAN + username + st.RESET}")
 	elif cmd.startswith("ping"):
-		pingcmd = f"ping {cmd[5:]}"
-		os.system(pingcmd)
-
+		pingCMD = f"ping {cmd[5:]}"
+		os.system(pingCMD)
 	elif cmd.startswith("echo"):
 		print(cmd[5:])
-
-	elif cmd == "shutdown -now":
-		cls
-		print(style.cyan + "Made by Daniel Kristensen\nWritten in Python" + style.reset)
-		time.sleep(2)
-		exit()
-	
-
-	#*Commands that change system settings
-	
 	elif cmd == "chg name":
-		if root:
-			user = input("Enter new name: ")
-			user = user.title()
-
-			print(f"Name successfully changed to: {style.blue + user + style.reset}")
-
-			time.sleep(2)
-
-			cls()
-		else:
-			print(style.red + "You must be root user to change owner name!" + style.reset)
-
+		userFullName = input("Enter name: ")
 	elif cmd == "chg username":
+		username = input("Enter usrername: ")
+	elif cmd == "shutdown":
+		print(st.RED + "Thank you for using PythonOS" + st.RESET)
+		exit()
+
+	elif cmd == "list cmd":
 		if root:
-			username = input("Enter new username: ")
-			print(f"Username successfully changed to: {style.blue + username + style.reset}")
-			time.sleep(2)
-			cls()
+			print(
+				"Available commands:\n"
+				"\t1. chg username = change username of user\n"
+				"\t2. chg name = change name of user\n"
+				"\t3. chg password\n"
+			)
 		else:
-			print(style.red + "You must be root user to change username!" + style.reset)
-	
-
-	elif cmd == "list su cmd" and root:
-		print(
-			"Available commands:\n"
-			"\t1. chg username = change username of user\n"
-			"\t2. chg name = change name of user\n"
-			"\t3. chg password\n"
-		)
-
-	#*Root settings
-	elif cmd == "chg password":
+			print(
+				st.CYAN +
+				"Commands:\n"
+				"\t1. su # = switch user to root user / su = switch back\n"
+				"\t2. ip = Get the local IPv4 address\n"
+				"\t3. clear / cls = clear screen\n"
+				"\t4. pcname = shows the name of the PC\n"
+				"\t5. whoami = shows if you are root user or local user\n"
+				"\t6. ping = enter address to ping after ping\n\tex ping www.google.com\n"
+				"\t7. shutdown -now = quits the program\n"
+				"\t8. echo = enter a string after echo to print it to terminal\n"
+				+ st.RESET
+			)
+	elif cmd == "chg passwd":
 		if root:
-			password = stdiomask.getpass(prompt = "Enter new password: ", mask = "*")
-			passConf = stdiomask.getpass(prompt = "confirm new password: ", mask = "*")
-			if password == passConf:
-				print(style.green + f"Password for {username} successfully changed" + style.reset)
-				time.sleep(2)
-				cls()
-			else:
-				print(style.red + "Passwords don't match" + style.reset)
+			rootpassword = stdiomask.getpass(prompt = "Enter new password for this session: ", mask = "*")
 		else:
-			print(style.red + "You must be root user to change password!")
-
-	#EOS = End Of Settings
+			password = stdiomask.getpass(prompt = "Enter new password for this session: ", mask = "*")
 	else:
-		print(style.red + "Unknown command! Type \"help\" for more information" + style.reset)
+		print(st.RED + "Unknown command, Type 'help' or 'list cmd' for a list of available commands" + st.RESET)
 
 #! ©Daniel Kristensen 2021
