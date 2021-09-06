@@ -61,7 +61,7 @@ def SYSINFO():
 	print(f"OS:\t\t{platform.system()}")
 	print(f"Release:\t{platform.release()}")
 	print(f"Version:\t{platform.version()}")
-	print(f"IPv4:\t\t{IPv4}")
+	print(f"IPv4:\t\t{IPV4}")
 
 CLS()
 
