@@ -4,6 +4,7 @@ import os
 import sys
 import time
 import socket
+import platform
 from os import name, system
 
 try:
@@ -139,7 +140,6 @@ while running and loggedIn:
 			else:
 				print("Password is incorrect, try agian!")
 				time.sleep(1)
-				tries += 1
 				CLS()
 	elif cmd == "sysinfo":
 		SYSINFO()
