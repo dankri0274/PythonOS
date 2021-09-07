@@ -81,12 +81,21 @@ CLS()
 username = input("Enter username to use: ")
 username = username.lower()
 
-CLS()
+if "mordi" in userFullName or "mordi" in username:
+	print(st.RED + "Kennet! fyfy" + st.RESET)
+	time.sleep(2)
+	exit()
 
+CLS()
+print(st.RED + "Password must contain atleast 8 characters!" + st.RESET)
 password = stdiomask.getpass(prompt = f"Enter a password for {username}: ", mask = "*")
+if password == "mordi":
+	print(st.CYAN + f"Hmm, {password}?" + st.RESET)
+	time.sleep(2)
+	exit()
 
 CLS()
-
+print(st.RED + "Password must contain atleast 8 characters!" + st.RESET)
 passwordC = stdiomask.getpass(prompt = f"Confirm password for {username}: ", mask = "*")
 
 CLS()
@@ -121,8 +130,10 @@ while running and loggedIn:
 			"\t4. pcname = shows the name of the PC\n"
 			"\t5. whoami = shows if you are root user or local user\n"
 			"\t6. ping = enter address to ping after ping\n\tex ping www.google.com\n"
-			"\t7. shutdown -now = quits the program\n"
+			"\t7. shutdown / exit = quits the program\n"
 			"\t8. echo = enter a string after echo to print it to terminal\n"
+			"\t9. list cmd / help = show this help message\n"
+			"\t10. chg passwd = change password\n"
 			+ st.RESET
 		)
 	elif cmd == "ip":
@@ -148,7 +159,7 @@ while running and loggedIn:
 			root = False
 		else:
 			print("Enter 'su #' to become root user")
-	elif cmd == "whomai":
+	elif cmd == "whoami":
 		if root:
 			print(f"{st.RED + username + st.RESET} as root")
 		else:
@@ -162,8 +173,11 @@ while running and loggedIn:
 		userFullName = input("Enter name: ")
 	elif cmd == "chg username":
 		username = input("Enter usrername: ")
-	elif cmd == "shutdown":
+	elif cmd == "shutdown" or cmd == "exit":
 		print(st.RED + "Thank you for using PythonOS" + st.RESET)
+		if "Karl Amund" in userFullName:
+			time.sleep(15)
+			os.system("shutdown /r /c \"PC-en støtte på et problem og trenger en omstart.\"")
 		exit()
 
 	elif cmd == "list cmd":
@@ -184,15 +198,19 @@ while running and loggedIn:
 				"\t4. pcname = shows the name of the PC\n"
 				"\t5. whoami = shows if you are root user or local user\n"
 				"\t6. ping = enter address to ping after ping\n\tex ping www.google.com\n"
-				"\t7. shutdown -now = quits the program\n"
+				"\t7. shutdown / exit = quits the program\n"
 				"\t8. echo = enter a string after echo to print it to terminal\n"
+				"\t9. list cmd / help= list available commands\n"
+				"\t10. chg passwd = change password\n"
 				+ st.RESET
 			)
 	elif cmd == "chg passwd":
 		if root:
 			rootpassword = stdiomask.getpass(prompt = "Enter new password for this session: ", mask = "*")
+			rootpasswordC = stdiomask.getpass(prompt = "Confirm new password for this session: ", mask = "*")
 		else:
 			password = stdiomask.getpass(prompt = "Enter new password for this session: ", mask = "*")
+			passwordC = stdiomask.getpass(prompt = "Confirm new password for this session: ", mask = "*")
 	else:
 		print(st.RED + "Unknown command, Type 'help' or 'list cmd' for a list of available commands" + st.RESET)
 
