@@ -19,6 +19,7 @@ except ImportError:
 		os.system("sudo apt install python3-pip")
 		os.system("pip3 install stdiomask")
 
+
 #*_______________SETUP_______________
 
 cmd = ""
@@ -69,7 +70,7 @@ def SYSINFO():
 	print(f"IPv4:\t\t{IPV4}")
 
 def username():
-	space = nameOfUser.index(" ")
+	space = nameOfUser.rfind(" ")
 	username = nameOfUser[0:3] + nameOfUser[space + 1:space + 4]
 	username = username.lower()
 
@@ -84,7 +85,7 @@ print(st.GRN +
 	"For source code access send e-mail request to: dankri0274@gmail.com"
 + st.RESET)
 
-nameOfUser = input("Enter your first name and last name: ")
+nameOfUser = input("Enter your full name: ")
 nameOfUser = nameOfUser.title()
 
 CLS()
