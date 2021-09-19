@@ -19,7 +19,6 @@ except ImportError:
 		os.system("sudo apt install python3-pip")
 		os.system("pip3 install stdiomask")
 
-
 #*_______________SETUP_______________
 
 cmd = ""
