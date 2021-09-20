@@ -1,5 +1,5 @@
 Basic commands:
-	1.  ip              =   Get IPv4 address of machine
+    1.  ip              =   Get IPv4 address of machine
     2.  su              =   Switch to / from root user
     3.  chg name        =   Change name of the user
     4.  chg password    =   Change password of user
