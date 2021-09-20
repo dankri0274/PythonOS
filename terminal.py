@@ -16,7 +16,6 @@ except ImportError:
 	if name == "nt":
 		os.system("pip install stdiomask")
 	else:
-		os.system("sudo apt install python3-pip")
 		os.system("pip3 install stdiomask")
 
 
@@ -127,7 +126,7 @@ while running and loggedIn:
 		print(
 			st.CYAN +
 			"Commands:\n"
-			"\t1. su # = switch user to root user / su = switch back\n"
+			"\t1. su = switch user to root user / su = switch back\n"
 			"\t2. ip = Get the local IPv4 address\n"
 			"\t3. clear / cls = clear screen\n"
 			"\t4. pcname = shows the name of the PC\n"
@@ -146,7 +145,7 @@ while running and loggedIn:
 		print(st.GRN + HOST + st.RESET)
 	elif cmd == "clear" or cmd == "cls":
 		CLS()
-	elif cmd == "su #":
+	elif cmd == "su":
 		if not root: 
 			rootRequest = stdiomask.getpass(prompt = "Enter root password: ", mask = "*")
 			if rootRequest == rootpassword:
@@ -156,13 +155,10 @@ while running and loggedIn:
 				print("Password is incorrect, try agian!")
 				time.sleep(1)
 				CLS()
+		else:
+			root = False
 	elif cmd == "sysinfo":
 		SYSINFO()
-	elif cmd == "su":
-		if root:
-			root = False
-		else:
-			print("Enter 'su #' to become root user")
 	elif cmd == "whoami":
 		if root:
 			print(f"{st.RED + username() + st.RESET} as root")
@@ -177,9 +173,6 @@ while running and loggedIn:
 		nameOfUser = input("Enter name: ")
 	elif cmd == "shutdown" or cmd == "exit":
 		print(st.RED + "Thank you for using PythonOS" + st.RESET)
-		if "Karl Amund" in nameOfUser:
-			time.sleep(15)
-			os.system("shutdown /r /c \"PC-en støtte på et problem og trenger en omstart.\"")
 		exit()
 
 	elif cmd == "chg passwd":
