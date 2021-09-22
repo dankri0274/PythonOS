@@ -6,8 +6,8 @@ import sys
 import time
 import socket
 import platform
+import webbrowser
 from os import name, system
-
 
 try:
 	import stdiomask
@@ -78,11 +78,11 @@ def sysver():
 	return "1.2"
 
 def easterEgg():
-	print("                                              ")
-	print("                      /\")
-	print("     PythonOS        /  \")
-	print(f"      v{sysver()}             |()|")
-	print("       BETA         /|__|\")
+	print(" ")
+	print("                      /\ ")
+	print("     PythonOS        /  \ ")
+	print(f"      v{sysver()}          |()|")
+	print("       BETA         /|__|\ ")
 	print("                     |  |")
 	print("                     \__/")
 	print("                      **")
@@ -177,6 +177,11 @@ while running and loggedIn:
 	elif cmd.startswith("ping"):
 		pingCMD = f"ping {cmd[5:]}"
 		os.system(pingCMD)
+	elif cmd.startswith("url"):
+		s = cmd.index(" ")
+		s + 1
+		url = cmd[s:]
+		webbrowser.open(url)
 	elif cmd.startswith("echo"):
 		print(cmd[5:])
 	elif cmd == "chg name":
