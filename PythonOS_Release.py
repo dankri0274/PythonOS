@@ -79,6 +79,9 @@ CLS()
 
 #*_______________The_Program_Itself_______________
 
+print(f"{st.GRN}Welcom to PythonOS v{sysver()}")
+time.sleep(2)
+
 print(st.GRN +
 	"This program is created and maintained by Daniel Kristensen\n"
 	"For source code access send e-mail request to: dankri0274@gmail.com"

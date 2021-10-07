@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+#! Can only run in Python 3.6 and above
+
 import re
 import os
 import sys
@@ -29,6 +31,12 @@ def symbol():
 		return "#"
 	else:
 		return "$"
+
+def pythonVersion():
+	if sys.version_info[0] == 3 and sys.version_info[1] >= 6:
+		return True
+	else:
+		return False
 
 class st():
 	ULINE = '\033[4m'
@@ -81,160 +89,172 @@ def easterEgg():
 	print("                     \__/")
 	print("                      **")
 	print("                      **")
-	print("                      **")
 	print("                 ************")
 	print("              ******************")
 
 CLS()
 
-#*_______________The_Program_Itself_______________
+#!_______________The_Program_Itself_______________
+def main():
+	pythonVersion()
 
-nameOfUser = input("Enter your full name: ")
-nameOfUser = nameOfUser.title()
-
-CLS()
-print(st.RED + "Password must contain atleast 8 characters!" + st.RESET)
-password = masking.getpass(prompt = f"Enter a password for {st.GRN + username() + st.RESET}: ", mask = "*")
-
-if password == "mordi":
-	print(st.CYAN + f"Hmm, {password}?" + st.RESET)
-	time.sleep(2)
-	exit()
-
-CLS()
-print(st.YLW + f"Characters in last password: {len(password)}!" + st.RESET)
-passwordC = masking.getpass(prompt = f"Confirm password for {st.GRN + username() + st.RESET}: ", mask = "*")
-
-CLS()
-
-if password == passwordC and len(password) >= 8 and len(passwordC) >= 8:
-	print(st.GRN + "Account created, logging in" + st.RESET)
-	loggedIn = True
-	time.sleep(1)
-
-elif len(password) < 8 or len(passwordC) < 8:
-	print(st.RED + "Password must contain atleast 8 characters!" + st.RESET)
-	time.sleep(2)
-
-else:
-	print(st.RED + "Passwords don't match!")
-	time.sleep(2)
-
-CLS()
-
-while running and loggedIn:
-	cmd = input(
-		f"{st.BLUE + username() + st.RESET + st.GRN}@{st.RESET + st.YLW}PythonOS{st.RESET}"
-		f":{st.BLUE}~{st.RESET}{st.RED + symbol() + st.RESET if root else st.GRN + symbol() + st.RESET} "
-		)
-	cmd = cmd.lower()
-
-	#* COMMANDS
-
-	#* Practical commands
-	if cmd == "help" or cmd == "list cmd":
-		print(
-			st.CYAN +
-			"Commands:\n"
-			"\t1. su # = switch user to root user / su = switch back\n"
-			"\t2. ip = Get the local IPv4 address\n"
-			"\t3. clear / cls = clear screen\n"
-			"\t4. pcname = shows the name of the PC\n"
-			"\t5. whoami = shows if you are root user or local user\n"
-			"\t6. ping = enter address to ping after ping\n\tex ping www.google.com\n"
-			"\t7. shutdown / exit = quits the program\n"
-			"\t8. echo = enter a string after echo to print it to terminal\n"
-			"\t9. list cmd / help = show this help message\n"
-			"\t10. chg passwd = change password\n"
-			"\t11. chg name = change name"
-			+ st.RESET
-		)
-	
-	#* SYSTEM COMMANDS
-
-	elif cmd == "ip" or cmd == "ip address":
-		print(st.CYAN + IPV4 + st.RESET)
-	
-	elif cmd == "pcname":
-		print(st.GRN + HOST + st.RESET)
-
-	elif cmd == "sysinfo":
-		SYSINFO()
-	
-	elif cmd == "whoami":
-		if root:
-			print(f"{st.RED + username() + st.RESET} as root")
-		else:
-			print(f"{st.YLW + nameOfUser + st.RESET} as user {st.CYAN + username() + st.RESET}")
-	
-	elif cmd.startswith("ping"):
-		pingCMD = f"ping {cmd[5:]}"
-		os.system(pingCMD)
-	
-	elif cmd.startswith("url"): #* Open URL in webbrowser(Google Chrome)
-		s = cmd.index(" ")
-		s + 1
-		url = cmd[s:]
-		webbrowser.open(url)
-	
-	elif cmd.startswith("echo"):
-		print(cmd[5:])
-	
-	elif cmd == "clear" or cmd == "cls":
+	if pythonVersion() == False:
+		print(st.RED + "PythonOS requires Python 3.6 or above to run!\nUpdate your Python version to run PythonOS" + st.RESET)
+		time.sleep(10)
 		CLS()
+		sys.exit()
 	
-	#* SWITCH USER
+	print(f"{st.GRN}Welcome to PythonOS v{sysver() + st.RESET}")
+	time.sleep(2)
 
-	elif cmd == "su #":
-		if not root: 
-			rootRequest = masking.getpass(prompt = "Enter root password: ", mask = "*")
-			if rootRequest == rootpassword:
-				root = True
-				CLS()
-			else:
-				print("Password is incorrect, try agian!")
-				time.sleep(1)
-				CLS()
-		else:
-			root = False
-	
-	elif cmd == "su":
-		if root:
-			root = False
-			CLS()
-		else:
-			rootRequest = masking.getpass(prompt = "Enter root password: ", mask = "*")
-			if rootRequest == rootpassword:
-				root = True
-				CLS()
-	
-	#* CHANGE NAME / USERNAME / PASSWORD
+	CLS()
 
-	elif cmd == "chg name":
-		nameOfUser = input("Enter name: ")
-		print(f"Name changed to {nameOfUser}")
-	
-	elif cmd == "chg passwd":
-		if root:
-			rootpassword = masking.getpass(prompt = "Enter new password for this session: ", mask = "*")
-			rootpasswordC = masking.getpass(prompt = "Confirm new password for this session: ", mask = "*")
-		else:
-			password = masking.getpass(prompt = "Enter new password for this session: ", mask = "*")
-			passwordC = masking.getpass(prompt = "Confirm new password for this session: ", mask = "*")
+	nameOfUser = input("Enter your full name: ")
+	nameOfUser = nameOfUser.title()
 
-	#* SHUTDOWN
+	CLS()
+	print(st.RED + "Password must contain atleast 8 characters!" + st.RESET)
+	password = masking.getpass(prompt = f"Enter a password for {st.GRN + username() + st.RESET}: ", mask = "*")
 
-	elif cmd == "shutdown" or cmd == "exit":
-		print(st.RED + "Thank you for using PythonOS" + st.RESET)
+	CLS()
+	print(st.YLW + f"Characters in last password: {len(password)}!" + st.RESET)
+	passwordC = masking.getpass(prompt = f"Confirm password for {st.GRN + username() + st.RESET}: ", mask = "*")
+
+	CLS()
+
+	if password == passwordC and len(password) >= 8 and len(passwordC) >= 8:
+		print(st.GRN + "Account created, logging in" + st.RESET)
+		loggedIn = True
+		time.sleep(1)
+
+	elif len(password) < 8 or len(passwordC) < 8:
+		print(st.RED + "Password must contain atleast 8 characters!" + st.RESET)
 		time.sleep(2)
-		exit()
-	
-	#* EASTER EGG
-
-	elif cmd == "easter bunny":
-		easterEgg()
 
 	else:
-		print(st.RED + "Unknown command, Type 'help' or 'list cmd' for a list of available commands" + st.RESET)
+		print(st.RED + "Passwords don't match!")
+		time.sleep(2)
+
+	CLS()
+
+	while running and loggedIn:
+		cmd = input(
+			f"{st.BLUE + username() + st.RESET + st.GRN}@{st.RESET + st.YLW}PythonOS{st.RESET}"
+			f":{st.BLUE}~{st.RESET}{st.RED + symbol() + st.RESET if root else st.GRN + symbol() + st.RESET} "
+			)
+		cmd = cmd.lower()
+
+		#* COMMANDS
+
+		#* Practical commands
+		if cmd == "help" or cmd == "list cmd": #! List all commands
+			print(
+				st.CYAN +
+				"Commands:\n"
+				"\t1. su # = switch user to root user / su = switch back\n"
+				"\t2. ip = Get the local IPv4 address\n"
+				"\t3. clear / cls = clear screen\n"
+				"\t4. pcname = shows the name of the PC\n"
+				"\t5. whoami = shows if you are root user or local user\n"
+				"\t6. ping = enter address to ping after ping\n\tex ping www.google.com\n"
+				"\t7. shutdown / exit = quits the program\n"
+				"\t8. echo = enter a string after echo to print it to terminal\n"
+				"\t9. list cmd / help = show this help message\n"
+				"\t10. chg passwd = change password\n"
+				"\t11. chg name = change name\n"
+				"\t12. url {website} = opens that url in system default browser\n"
+				+ st.RESET
+			)
+
+		#* SYSTEM COMMANDS
+
+		elif cmd == "ip" or cmd == "ip address": #! Get the local IPv4 address
+			print(st.CYAN + IPV4 + st.RESET)
+		
+		elif cmd == "pcname": #! Shows the name of the PC
+			print(st.GRN + HOST + st.RESET)
+
+		elif cmd == "sysinfo": #! Shows system information
+			SYSINFO()
+		
+		elif cmd == "whoami": #! Shows if you are root or not
+			if root:
+				print(f"{st.RED + username() + st.RESET} as root")
+			else:
+				print(f"{st.YLW + nameOfUser + st.RESET} as user {st.CYAN + username() + st.RESET}")
+		
+		elif cmd.startswith("ping"): #! Pings a website or local address
+			pingCMD = f"ping {cmd[5:]}"
+			os.system(pingCMD)
+		
+		elif cmd.startswith("url"): #! Open URL in webbrowser
+			s = cmd.index(" ")
+			s + 1
+			url = cmd[s:]
+			webbrowser.get('windows-default').open(url)
+		
+		elif cmd.startswith("echo"): #! Prints a string to terminal
+			print(cmd[5:])
+		
+		elif cmd == "clear" or cmd == "cls": #! Clear screen
+			CLS()
+		
+		#* SWITCH USER
+
+		elif cmd == "su #": #! Switch user to root
+			if not root: 
+				rootRequest = masking.getpass(prompt = "Enter root password: ", mask = "*")
+				if rootRequest == rootpassword:
+					root = True
+					CLS()
+				else:
+					print("Password is incorrect, try agian!")
+					time.sleep(1)
+					CLS()
+			else:
+				root = False
+		
+		elif cmd == "su": #! Switch user to local
+			if root:
+				root = False
+				CLS()
+			else:
+				rootRequest = masking.getpass(prompt = "Enter root password: ", mask = "*")
+				if rootRequest == rootpassword:
+					root = True
+					CLS()
+		
+		#* CHANGE NAME / USERNAME / PASSWORD
+
+		elif cmd == "chg name": #! Change name
+			nameOfUser = input("Enter name: ")
+			print(f"Name changed to {nameOfUser}")
+		
+		elif cmd == "chg passwd": #! Change password
+			if root:
+				rootpassword = masking.getpass(prompt = "Enter new password for this session: ", mask = "*")
+				rootpasswordC = masking.getpass(prompt = "Confirm new password for this session: ", mask = "*")
+			else:
+				password = masking.getpass(prompt = "Enter new password for this session: ", mask = "*")
+				passwordC = masking.getpass(prompt = "Confirm new password for this session: ", mask = "*")
+
+		#* SHUTDOWN
+
+		elif cmd == "shutdown" or cmd == "exit": #! Shutdown the program
+			print(st.RED + "Thank you for using PythonOS" + st.RESET)
+			time.sleep(2)
+			exit()
+		
+		#* EASTER EGG
+
+		elif cmd == "easter bunny":
+			easterEgg()
+
+		else:
+			print(st.RED + "Unknown command, Type 'help' or 'list cmd' for a list of available commands" + st.RESET)
+
+if __name__ == "__main__":
+	main()
+
 
 #! ©Daniel Kristensen 2021
