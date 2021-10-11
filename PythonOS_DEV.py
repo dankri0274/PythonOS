@@ -78,38 +78,53 @@ def SYSINFO():
 	print(f"Version:\t{sysver()}")
 	print(f"IPv4:\t\t{IPV4}")
 
+def loading():
+	for i in range(1):
+		sys.stdout.write(st.GRN + "\r█      LOADING" + st.RESET)
+		time.sleep(1.5)
+		sys.stdout.write(st.GRN + "\r██     LOADING" + st.RESET)
+		time.sleep(1.5)
+		sys.stdout.write(st.GRN + "\r███    LOADING" + st.RESET)
+		time.sleep(1.5)
+		sys.stdout.write(st.GRN + "\r████   LOADING" + st.RESET)
+		time.sleep(1.5)
+		sys.stdout.write(st.GRN + "\r█████  LOADING" + st.RESET)
+		time.sleep(1.5)
+		sys.stdout.write(st.GRN + "\r██████ LOADING" + st.RESET)
+		time.sleep(1.5)
+		sys.stdout.write(st.GRN + "\r███████LOADING" + st.RESET)
+		time.sleep(1.5)
 
-def easterEgg():
+def startUp():
 	print(
 		".===============================================================================.\n"
 		f"|                                                                               |\n"
-		f"|                                {st.BLUE}.::::::::::.{st.RESET}                                   |\n"
-		f"|                              {st.BLUE}.::``::::::::::.{st.RESET}                                 |\n"
-		f"|                              {st.BLUE}:::..:::::::::::{st.RESET}                                 |\n"
-		f"|                              {st.BLUE}````````::::::::{st.RESET}                                 |\n"
-		f"|                      {st.BLUE}.:::::::::::::::::::::::{st.YLW} iiiiiii,{st.RESET}                        |\n"
-		f"|                   {st.BLUE}.::::::::::::::::::::::::::{st.YLW} iiiiiiiii.{st.RESET}                      |\n"
-		f"|                   {st.BLUE}:::::::::::::::::::::::::::{st.YLW} iiiiiiiiii{st.RESET}                      |\n"
-		f"|                   {st.BLUE}:::::::::::::::::::::::::::{st.YLW} iiiiiiiiii{st.RESET}                      |\n"
-		f"|                   {st.BLUE}::::::::::{st.YLW} ,,,,,,,,,,,,,,,,,iiiiiiiiii{st.RESET}                      |\n"
-		f"|                   {st.BLUE}::::::::::{st.YLW} iiiiiiiiiiiiiiiiiiiiiiiiiii{st.RESET}                      |\n"
-		f"|                   {st.BLUE}`:::::::::{st.YLW} iiiiiiiiiiiiiiiiiiiiiiiiii`{st.RESET}                      |\n"
-		f"|                      {st.BLUE}`::::::{st.YLW} iiiiiiiiiiiiiiiiiiiiiii`{st.RESET}                         |\n"
+		f"|                                {st.CYAN}.::::::::::.{st.RESET}                                   |\n"
+		f"|                              {st.CYAN}.::``::::::::::.{st.RESET}                                 |\n"
+		f"|                              {st.CYAN}:::..:::::::::::{st.RESET}                                 |\n"
+		f"|                              {st.CYAN}````````::::::::{st.RESET}                                 |\n"
+		f"|                      {st.CYAN}.:::::::::::::::::::::::{st.YLW} iiiiiii,{st.RESET}                        |\n"
+		f"|                   {st.CYAN}.::::::::::::::::::::::::::{st.YLW} iiiiiiiii.{st.RESET}                      |\n"
+		f"|                   {st.CYAN}:::::::::::::::::::::::::::{st.YLW} iiiiiiiiii{st.RESET}                      |\n"
+		f"|                   {st.CYAN}:::::::::::::::::::::::::::{st.YLW} iiiiiiiiii{st.RESET}                      |\n"
+		f"|                   {st.CYAN}::::::::::{st.YLW} ,,,,,,,,,,,,,,,,,iiiiiiiiii{st.RESET}                      |\n"
+		f"|                   {st.CYAN}::::::::::{st.YLW} iiiiiiiiiiiiiiiiiiiiiiiiiii{st.RESET}                      |\n"
+		f"|                   {st.CYAN}`:::::::::{st.YLW} iiiiiiiiiiiiiiiiiiiiiiiiii`{st.RESET}                      |\n"
+		f"|                      {st.CYAN}`::::::{st.YLW} iiiiiiiiiiiiiiiiiiiiiii`{st.RESET}                         |\n"
 		f"|                              {st.YLW}iiiiiiii,,,,,,,,{st.RESET}                                 |\n"
 		f"|                              {st.YLW}iiiiiiiiiii''iii{st.RESET}                                 |\n"
 		f"|                              {st.YLW}`iiiiiiiiii..ii`{st.RESET}                                 |\n"
 		f"|                                {st.YLW}`iiiiiiiiii`{st.RESET}                                   |\n"
 		f"|                                                                               |\n"
-		f"|             {st.GRN} ____        _   _                   _____   ____{st.RESET}                 |\n"
-		f"|             {st.GRN}|  _ \ _   _| |_| |__   ___  _ __   /  _  \ | ___|{st.RESET}                |\n"
-		f"|             {st.GRN}| |_) | | | | __| '_ \ / _ \| '_ \  | | | | |____{st.RESET}                 |\n"
-		f"|             {st.GRN}|  __/| |_| | |_| | | | (_) | | | | | |_| |  ___ |{st.RESET}                |\n"
-		f"|             {st.GRN}|_|    \__, |\__|_| |_|\___/|_| |_| \_____/ |____|{st.RESET}                |\n"
+		f"|             {st.GRN} ____        _   _                            {st.RESET}                    |\n"
+		f"|             {st.GRN}|  _ \ _   _| |_| |__   ___  _ __   XXXXX XXXX     {st.RESET}               |\n"
+		f"|             {st.GRN}| |_) | | | | __| '_ \ / _ \| '_ \  X   X X___    {st.RESET}                |\n"
+		f"|             {st.GRN}|  __/| |_| | |_| | | | (_) | | | | X   X    X  {st.RESET}                  |\n"
+		f"|             {st.GRN}|_|    \__, |\__|_| |_|\___/|_| |_| XXXXX XXXX    {st.RESET}                |\n"
 		f"|                    {st.GRN}|___/{st.RESET}                                                      |\n"
 		f"|                                                                               |\n"
 		f"'==============================================================================='\n"
 	)
-
 CLS()
 
 #!_______________The_Program_Itself_______________
@@ -122,8 +137,8 @@ if pythonVersion() == False:
 	CLS()
 	sys.exit()
 	
-print(f"{st.GRN}Welcome to PythonOS v{sysver() + st.RESET}")
-time.sleep(2)
+startUp()
+loading()
 
 CLS()
 
@@ -167,7 +182,7 @@ while running and loggedIn:
 	#* Practical commands
 	if cmd == "help" or cmd == "list cmd": #! List all commands
 		print(
-			st.CYAN +
+			st.GRN +
 			"Commands:\n"
 			"\t1. su # = switch user to root user / su = switch back\n"
 			"\t2. ip = Get the local IPv4 address\n"
@@ -180,7 +195,7 @@ while running and loggedIn:
 			"\t9. list cmd / help = show this help message\n"
 			"\t10. chg passwd = change password\n"
 			"\t11. chg name = change name\n"
-			"\t12. url {website} = opens that url in system default browser\n"
+			f"\t{st.RED}12. url \"website\" = opens that url in system default browser UNSTABLE\n"
 			+ st.RESET
 		)
 
@@ -266,8 +281,8 @@ while running and loggedIn:
 		
 	#* EASTER EGG
 
-	elif cmd == "easter bunny":
-		easterEgg()
+	#elif cmd == "easter bunny":
+		#easterEgg()
 
 	else:
 		print(st.RED + "Unknown command, Type 'help' or 'list cmd' for a list of available commands" + st.RESET)
