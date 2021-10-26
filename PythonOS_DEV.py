@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
 
-#! Can only run in Python 3.6 and above
+#*! Can only run in Python 3.6 and above
 
-import re
 import os
 import sys
 import time
@@ -10,7 +8,6 @@ import socket
 import masking
 import datetime
 import platform
-import webbrowser
 from os import name, system
 
 #*_______________SETUP_______________
@@ -22,6 +19,10 @@ def main():
 	root = False
 	running = True
 	loggedIn = False
+
+	interval = 0.5 #* For time.sleep()
+
+	history = []
 
 	HOST = socket.gethostname()
 	IPV4 = socket.gethostbyname(HOST)
@@ -61,7 +62,7 @@ def main():
 			_ = system("clear")
 
 	def sysver():
-		return "1.3.1 DEV"
+		return "1.3.2 DEV"
 
 	def username():
 		space = nameOfUser.rfind(" ")
@@ -81,19 +82,19 @@ def main():
 	def loading():
 		for i in range(1):
 			sys.stdout.write(st.GRN + "\r█      LOADING" + st.RESET)
-			time.sleep(0.5)
+			time.sleep(interval)
 			sys.stdout.write(st.GRN + "\r██     LOADING" + st.RESET)
-			time.sleep(0.5)
+			time.sleep(interval)
 			sys.stdout.write(st.GRN + "\r███    LOADING" + st.RESET)
-			time.sleep(0.5)
+			time.sleep(interval)
 			sys.stdout.write(st.GRN + "\r████   LOADING" + st.RESET)
-			time.sleep(0.5)
+			time.sleep(interval)
 			sys.stdout.write(st.GRN + "\r█████  LOADING" + st.RESET)
-			time.sleep(0.5)
+			time.sleep(interval)
 			sys.stdout.write(st.GRN + "\r██████ LOADING" + st.RESET)
-			time.sleep(0.5)
+			time.sleep(interval)
 			sys.stdout.write(st.GRN + "\r███████LOADING" + st.RESET)
-			time.sleep(0.5)
+			time.sleep(interval)
 
 	def startUp():
 		print(
@@ -180,6 +181,8 @@ def main():
 		)
 		cmd = cmd.lower()
 
+		history.append(cmd)
+
 		#* COMMANDS
 
 		#* Practical commands
@@ -199,7 +202,7 @@ def main():
 				"\t10. chg passwd = change password\n"
 				"\t11. chg name = change name\n"
 				"\t12. sysinfo = get information about system\n"
-				f"\t{st.RED}13. url \"website\" = opens that url in system default browser UNSTABLE\n"
+				"\t13. hist = shows command history\n"
 				+ st.RESET
 			)
 
@@ -210,6 +213,9 @@ def main():
 
 		elif cmd == "pcname": #! Shows the name of the PC
 			print(st.GRN + HOST + st.RESET)
+
+		elif cmd == "hist":
+			print("\n".join(history))
 
 		elif cmd == "sysinfo": #! Shows system information
 			SYSINFO()
@@ -223,12 +229,6 @@ def main():
 		elif cmd.startswith("ping"): #! Pings a website or local address
 			pingCMD = f"ping {cmd[5:]}"
 			os.system(pingCMD)
-
-		elif cmd.startswith("url"): #! Open URL in webbrowser
-			s = cmd.index(" ")
-			s + 1
-			url = cmd[s:]
-			webbrowser.open(url)
 
 		elif cmd.startswith("echo"): #! Prints a string to terminal
 			print(cmd[5:])
@@ -297,6 +297,7 @@ def main():
 
 		else:
 			print(st.RED + "Unknown command, Type 'help' or 'list cmd' for a list of available commands" + st.RESET)
+			
 if __name__ == "__main__":
 	main()
 
