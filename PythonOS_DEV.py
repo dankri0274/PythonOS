@@ -216,6 +216,9 @@ def main():
 
 		elif cmd == "hist":
 			print("\n".join(history))
+		
+		elif cmd == "hist -clear":
+			history.clear()
 
 		elif cmd == "sysinfo": #! Shows system information
 			SYSINFO()
