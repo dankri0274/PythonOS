@@ -24,6 +24,8 @@ def main():
 
 	history = []
 
+	DEBUG = True
+
 	HOST = socket.gethostname()
 	IPV4 = socket.gethostbyname(HOST)
 
@@ -65,11 +67,15 @@ def main():
 		return "1.3.2 DEV"
 
 	def username():
-		space = nameOfUser.rfind(" ")
-		username = nameOfUser[0:3] + nameOfUser[space + 1:space + 4]
-		username = username.lower()
+		if DEBUG == True:
+			username = "DEBUG"
+			return username
+		else:
+			space = nameOfUser.rfind(" ")
+			username = nameOfUser[0:3] + nameOfUser[space + 1:space + 4]
+			username = username.lower()
 
-		return username
+			return username
 
 	def SYSINFO():
 		print(f"Full name:\t{nameOfUser}")
@@ -118,10 +124,10 @@ def main():
 			f"|                                {st.YLW}`iiiiiiiiii`{st.RESET}                                   |\n"
 			f"|                                                                               |\n"
 			f"|             {st.GRN} ____        _   _                            {st.RESET}                    |\n"
-			f"|             {st.GRN}|  _ \ _   _| |_| |__   ___  _ __   XXXXX XXXX     {st.RESET}               |\n"
-			f"|             {st.GRN}| |_) | | | | __| '_ \ / _ \| '_ \  X   X X___    {st.RESET}                |\n"
+			f"|             {st.GRN}|  _ \\ _   _| |_| |__   ___  _ __   XXXXX XXXX     {st.RESET}               |\n"
+			f"|             {st.GRN}| |_) | | | | __| '_ \\ / _ \\| '_ \\  X   X X___    {st.RESET}                |\n"
 			f"|             {st.GRN}|  __/| |_| | |_| | | | (_) | | | | X   X    X  {st.RESET}                  |\n"
-			f"|             {st.GRN}|_|    \__, |\__|_| |_|\___/|_| |_| XXXXX XXXX    {st.RESET}                |\n"
+			f"|             {st.GRN}|_|    \\__, |\\__|_| |_|\\___/|_| |_| XXXXX XXXX    {st.RESET}                |\n"
 			f"|                    {st.GRN}|___/{st.RESET}                                                      |\n"
 			f"|                                                                               |\n"
 			f"'==============================================================================='\n"
@@ -142,42 +148,47 @@ def main():
 	loading()
 
 	CLS()
-
-	nameOfUser = input("Enter your full name: ")
-	nameOfUser = nameOfUser.title()
-
-	CLS()
-	print(st.YLW + "Password must contain atleast 8 characters!" + st.RESET)
-	sys.stdout.write("\r" + st.YLW + 37 * " " + "├─ Minimum lenght\r" + st.RESET)
-	password = masking.getpass(prompt = f"Enter a password for {st.GRN + username() + st.RESET}: ", mask = "*")
-
-	CLS()
-	print(st.YLW + f"Characters in last password: {len(password)}!" + st.RESET)
-	sys.stdout.write("\r" + st.YLW + 29 * " " + len(password) * " " + "├── Lenght of password" + "\r" + st.RESET)
-	passwordC = masking.getpass(prompt = f"Confirm password for {st.GRN + username() + st.RESET}: ", mask = "*")
-
-	CLS()
-
-	if password == passwordC and len(password) >= 8 and len(passwordC) >= 8:
-		print(st.GRN + "Account created, logging in" + st.RESET)
+	if DEBUG == True:
+		nameOfUser = "Debugger"
+		password = "Debugging"
+		passwordc = "Debugging"
 		loggedIn = True
-		loading()
-		time.sleep(1)
-
-	elif len(password) < 8 or len(passwordC) < 8:
-		print(st.RED + "Password must contain atleast 8 characters!" + st.RESET)
-		time.sleep(2)
-
 	else:
-		print(st.RED + "Passwords don't match!")
-		time.sleep(2)
+		nameOfUser = input("Enter your full name: ")
+		nameOfUser = nameOfUser.title()
 
-	CLS()
+		CLS()
+		print(st.YLW + "Password must contain atleast 8 characters!" + st.RESET)
+		sys.stdout.write("\r" + st.YLW + 37 * " " + "├─ Minimum lenght\r" + st.RESET)
+		password = masking.getpass(prompt = f"Enter a password for {st.GRN + username() + st.RESET}: ", mask = "*")
+
+		CLS()
+		print(st.YLW + f"Characters in last password: {len(password)}!" + st.RESET)
+		sys.stdout.write("\r" + st.YLW + 29 * " " + len(password) * " " + "├── Lenght of password" + "\r" + st.RESET)
+		passwordC = masking.getpass(prompt = f"Confirm password for {st.GRN + username() + st.RESET}: ", mask = "*")
+
+		CLS()
+
+		if password == passwordC and len(password) >= 8 and len(passwordC) >= 8:
+			print(st.GRN + "Account created, logging in" + st.RESET)
+			loggedIn = True
+			loading()
+			time.sleep(1)
+
+		elif len(password) < 8 or len(passwordC) < 8:
+			print(st.RED + "Password must contain atleast 8 characters!" + st.RESET)
+			time.sleep(2)
+
+		else:
+			print(st.RED + "Passwords don't match!")
+			time.sleep(2)
+
+		CLS()
 
 	while running and loggedIn:
 		cmd = input(
-			f"{st.BLUE + username() + st.RESET + st.GRN}@{st.RESET + st.YLW}PythonOS{st.RESET}"
-			f":{st.BLUE}~{st.RESET}{st.RED + symbol() + st.RESET if root else st.GRN + symbol() + st.RESET} "
+			f"{st.BLUE}┌──({st.BLUE + username() + st.GRN}@{st.YLW}PythonOS{st.BLUE})-[{st.RESET}~{st.BLUE}]{st.RESET}\n"
+			f"{st.BLUE}└─{st.RED + symbol() + st.RESET if root else st.GRN + symbol() + st.RESET} "
 		)
 		cmd = cmd.lower()
 
@@ -216,7 +227,7 @@ def main():
 
 		elif cmd == "hist":
 			print("\n".join(history))
-		
+
 		elif cmd == "hist -clear":
 			history.clear()
 
