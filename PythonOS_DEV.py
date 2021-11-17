@@ -212,15 +212,15 @@ def main():
 				"|    |    \--[hist]        > Shows the command history\n"
 				"|    |    \--[hist -clear] > Clears the command history\n"
 				"|    |    \--[echo]        > Prints to the terminal what is entered after the \"echo\" command\n"
-				"|    \--{User Account}\n"
-				"|    |    \--[chg name]    > Changes the name for the current session\n"
-				"|    |    \--[chg passwd]  > Changes the password for the current session\n"
-				"|    |    \--[su # / su]   > \"su #\" changes to the superuser, \"su\" changes back\n"
-				"|    |    \--[whoami]      > Shows which user is currently active\n"
 				"|    |\n"
 				"|    \--[sysinfo]          > Displays info about the system\n"
 				"|    \--[pcname]           > Shows the name of the machine the OS is running on\n"
 				"|    \--[shutdown]         > Shuts down the OS (PythonOS)\n"
+				"\--{User Account}\n"
+				"     \--[chg name]    > Changes the name for the current session\n"
+				"     \--[chg passwd]  > Changes the password for the current session\n"
+				"     \--[su # / su]   > \"su #\" changes to the superuser, \"su\" changes back\n"
+				"     \--[whoami]      > Shows which user is currently active\n"
 				+ st.RESET
 			)
 
