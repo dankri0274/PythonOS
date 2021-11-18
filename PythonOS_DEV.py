@@ -24,7 +24,7 @@ def main():
 
 	history = []
 
-	DEBUG = True
+	DEBUG = False
 
 	HOST = socket.gethostname()
 	IPV4 = socket.gethostbyname(HOST)
