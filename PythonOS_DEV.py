@@ -24,7 +24,7 @@ def main():
 
 	history = []
 
-	DEBUG = False
+	DEBUG = True
 
 	HOST = socket.gethostname()
 	IPV4 = socket.gethostbyname(HOST)
@@ -64,7 +64,7 @@ def main():
 			_ = system("clear")
 
 	def sysver():
-		return "1.3.2 DEV"
+		return "1.3.3 DEV"
 
 	def username():
 		if DEBUG == True:
@@ -76,6 +76,13 @@ def main():
 			username = username.lower()
 
 			return username
+	
+	def histClear():
+		if cmd[7:] != "":
+			ptc = int(cmd[7:])
+			history.pop(ptc - 1) #hist -c X
+		else:
+			history.clear()
 
 	def SYSINFO():
 		print(f"Full name:\t{nameOfUser}")
@@ -145,7 +152,6 @@ def main():
 		sys.exit()
 
 	startUp()
-	loading()
 
 	CLS()
 	if DEBUG == True:
@@ -205,22 +211,22 @@ def main():
 				"\--{System}\n"
 				"|    |\n"
 				"|    \--{Networking}\n"
-				"|    |    \--[ip]          > Shows the IPv4 adress of the machine\n"
-				"|    |    \--[ping]        > Pings a website or local adress\n"
+				"|    |    \--[ip]             > Shows the IPv4 adress of the machine\n"
+				"|    |    \--[ping]           > Pings a website or local adress\n"
 				"|    \--{Terminal}\n"
-				"|    |    \--[cls/clear]   > Clears the terminal\n"
-				"|    |    \--[hist]        > Shows the command history\n"
-				"|    |    \--[hist -clear] > Clears the command history\n"
-				"|    |    \--[echo]        > Prints to the terminal what is entered after the \"echo\" command\n"
+				"|    |    \--[cls/clear]      > Clears the terminal\n"
+				"|    |    \--[hist]           > Shows the command history\n"
+				"|    |    \--[hist -c <n>]    > Clears the command history\n"
+				"|    |    \--[echo]           > Prints to the terminal what is entered after the \"echo\" command\n"
 				"|    |\n"
-				"|    \--[sysinfo]          > Displays info about the system\n"
-				"|    \--[pcname]           > Shows the name of the machine the OS is running on\n"
-				"|    \--[shutdown]         > Shuts down the OS (PythonOS)\n"
+				"|    \--[sysinfo]             > Displays info about the system\n"
+				"|    \--[pcname]              > Shows the name of the machine the OS is running on\n"
+				"|    \--[shutdown]            > Shuts down the OS (PythonOS)\n"
 				"\--{User Account}\n"
-				"     \--[chg name]    > Changes the name for the current session\n"
-				"     \--[chg passwd]  > Changes the password for the current session\n"
-				"     \--[su # / su]   > \"su #\" changes to the superuser, \"su\" changes back\n"
-				"     \--[whoami]      > Shows which user is currently active\n"
+				"     \--[chg name]            > Changes the name for the current session\n"
+				"     \--[chg passwd]          > Changes the password for the current session\n"
+				"     \--[su # / su]           > \"su #\" changes to the superuser, \"su\" changes back\n"
+				"     \--[whoami]              > Shows which user is currently active\n"
 				+ st.RESET
 			)
 
@@ -232,11 +238,12 @@ def main():
 		elif cmd == "pcname": #! Shows the name of the PC
 			print(st.GRN + HOST + st.RESET)
 
+		#* HISTORY
 		elif cmd == "hist":
 			print("\n".join(history))
 
-		elif cmd == "hist -clear":
-			history.clear()
+		elif cmd.startswith("hist -c"):
+			histClear()
 
 		elif cmd == "sysinfo": #! Shows system information
 			SYSINFO()
