@@ -138,7 +138,11 @@ def main():
 			f"{st.BLUE}┌──({st.BLUE + username() + st.GRN}@{st.YLW}PythonOS{st.BLUE})-[{st.RESET}~{st.BLUE}]{st.RESET}\n"
 			f"{st.BLUE}└─> {st.RED + symbol() + st.RESET if config.setup.root else st.GRN + symbol() + st.RESET} "
 		)
-		cmd = cmd.lower()
+		
+		if cmd.startsith("echo"):
+			cmd = cmd
+		else:
+			cmd = cmd.lower()
 
 		history.append(cmd)
 
