@@ -1,4 +1,4 @@
-from PythonOS_DEV import *
+from main import *
 
 def startUp():
 	print(

@@ -1,5 +1,5 @@
 from nec import socket
-from PythonOS_DEV import *
+from main import *
 
 class setup:
 	#* ROOT_______________

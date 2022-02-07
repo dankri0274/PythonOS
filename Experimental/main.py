@@ -138,15 +138,15 @@ def main():
 			f"{st.BLUE}┌──({st.BLUE + username() + st.GRN}@{st.YLW}PythonOS{st.BLUE})-[{st.RESET}~{st.BLUE}]{st.RESET}\n"
 			f"{st.BLUE}└─> {st.RED + symbol() + st.RESET if config.setup.root else st.GRN + symbol() + st.RESET} "
 		)
-		
-		if cmd.startsith("echo"):
+
+		if cmd.startswith("echo"):
 			cmd = cmd
 		else:
 			cmd = cmd.lower()
 
 		history.append(cmd)
 
-		#* COMMANDS
+		#* COMMANDS_____________________________________________________________
 
 		#* Practical commands
 		if cmd == "help" or cmd == "list cmd": #! List all commands
@@ -154,12 +154,12 @@ def main():
 				st.GRN +
 				"Commands\n"
 				"|\n"
-				"\--{System}\n"
+				"\--> System\n"
 				"|    |\n"
-				"|    \--{Networking}\n"
+				"|    \--> Networking ↑↓\n"
 				"|    |    \--[ip]             > Shows the IPv4 adress of the machine\n"
 				"|    |    \--[ping]           > Pings a website or local adress\n"
-				"|    \--{Terminal}\n"
+				"|    \--> Terminal >_\n"
 				"|    |    \--[cls/clear]      > Clears the terminal\n"
 				"|    |    \--[hist]           > Shows the command history\n"
 				"|    |    \--[hist -c <n>]    > Clears the command history, if \"hist -c <number>\", deletes an individual element\n"
@@ -168,7 +168,7 @@ def main():
 				"|    \--[sysinfo]             > Displays info about the system\n"
 				"|    \--[pcname]              > Shows the name of the machine the OS is running on\n"
 				"|    \--[shutdown]            > Shuts down the OS (PythonOS)\n"
-				"\--{User Account}\n"
+				"\--> User Account\n"
 				"     \--[chg name]            > Changes the name for the current session\n"
 				"     \--[chg passwd]          > Changes the password for the current session\n"
 				"     \--[su # / su]           > \"su #\" changes to the superuser, \"su\" changes back\n"
@@ -179,10 +179,10 @@ def main():
 		#* SYSTEM COMMANDS
 
 		elif cmd == "ip" or cmd == "ip address": #! Get the local IPv4 address
-			print(st.CYAN + IPV4 + st.RESET)
+			print(st.CYAN + config.setup.IPV4 + st.RESET)
 
 		elif cmd == "pcname": #! Shows the name of the PC
-			print(st.GRN + HOST + st.RESET)
+			print(st.GRN + config.setup.HOST + st.RESET)
 
 		#* HISTORY
 		elif cmd == "hist":

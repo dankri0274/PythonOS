@@ -1,4 +1,4 @@
-from PythonOS_DEV import *
+from main import *
 
 def changePassword():
 	if config.setup.root:

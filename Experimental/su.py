@@ -1,6 +1,6 @@
 import masking
-import PythonOS_DEV
-from PythonOS_DEV import *
+import main
+from main import *
 
 def switchUser():
 	if config.setup.root:
