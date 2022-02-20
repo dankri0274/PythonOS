@@ -6,6 +6,7 @@
 
 import config
 import masking
+import loading
 import clearScreen
 from nec import *
 
@@ -120,7 +121,7 @@ def main():
 		if password == passwordC and len(password) >= 8 and len(passwordC) >= 8:
 			print(st.GRN + "Account created, logging in" + st.RESET)
 			loggedIn = True
-			loading.loading()
+			# loading.loading()
 			time.sleep(1)
 
 		elif len(password) < 8 or len(passwordC) < 8:
