@@ -32,15 +32,15 @@ def main():
 
 		#* Colors
 
-		MGN		=		'\033[35m'
-		YLW		=		'\033[33m'
-		BLK		=		'\033[30m'
-		WHT		=		'\033[37m'
-		GRN		=		'\033[32m'
-		BLUE	=		'\033[34m'
-		CYAN	=		'\033[36m'
-		RED		=		'\033[31m'
-		RESET	=		'\033[0m'
+		MGN    = '\033[35m'
+		YLW    = '\033[33m'
+		BLK    = '\033[30m'
+		WHT    = '\033[37m'
+		GRN    = '\033[32m'
+		BLUE   = '\033[34m'
+		CYAN   = '\033[36m'
+		RED    = '\033[31m'
+		RESET  = '\033[0m'
 
 	#! Checks if code is running on a Windows or a Linux machine and clears terminal accordingly
 
